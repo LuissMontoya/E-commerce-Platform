@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	
+	<property name="entorno" value="DEV" />
+	 <property name="nombre" value="AppEcommerce" />
+	 
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level)
+				%green(${nombre}) %yellow(${entorno}) %magenta([%thread]) ${entorno}
+				%logger{36}.%M
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>C:\logs\pruebaLinkTic.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>C:\logs\pruebaLinkTic.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level)
+				%green(${nombre}) %yellow(${entorno}) %magenta([%thread]) ${entorno}
+				%logger{36}.%M
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="ERROR">
+			<appender-ref ref="FILE" />
+		</root>
+		<root level="WARN">
+			<appender-ref ref="FILE" />
+		</root>
+		<root level="INFO">
+			<appender-ref ref="FILE" />
+		</root>
+</configuration>
