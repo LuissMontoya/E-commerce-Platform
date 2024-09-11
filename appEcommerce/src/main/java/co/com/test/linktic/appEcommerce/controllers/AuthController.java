@@ -1,25 +1,29 @@
 package co.com.test.linktic.appEcommerce.controllers;
 
-import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.qos.logback.classic.pattern.Util;
 import co.com.test.linktic.appEcommerce.DTO.ResponseDTO;
 import co.com.test.linktic.appEcommerce.entity.Users;
+import co.com.test.linktic.appEcommerce.service.impl.CategoryServiceImpl;
 import co.com.test.linktic.appEcommerce.service.impl.UsersServiceImpl;
 import co.com.test.linktic.appEcommerce.utils.Constants;
 import co.com.test.linktic.appEcommerce.utils.JwtTokenUtil;
 import co.com.test.linktic.appEcommerce.utils.Utils;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "*", methods = { RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST,RequestMethod.PUT })
+@RequiredArgsConstructor
 public class AuthController {
 
 	@Autowired
