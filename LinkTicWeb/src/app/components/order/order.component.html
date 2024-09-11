@@ -1,14 +1,14 @@
 <mat-toolbar color="primary" style="display: flex; justify-content: space-between;">
-    <span>{{ isEditing ? 'Edit User' : 'Create New User' }}</span>
+    <span>{{ isEditing ? 'Edit Order' : 'Create New Order' }}</span>
     <button mat-icon-button type="button" (click)="closeDialog()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-toolbar>
   
-  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="ordersForm" (ngSubmit)="onSubmit()">
     <mat-form-field *ngIf="isEditing; else sharedKeyInput">
       <mat-label>Id Usuario</mat-label>
-      <input matInput [value]="clientForm.get('id')?.value" disabled>
+      <input matInput [value]="ordersForm.get('id')?.value" disabled>
     </mat-form-field>
   
     <ng-template #sharedKeyInput>
@@ -17,35 +17,31 @@
         <input matInput formControlName="id">
       </mat-form-field>
     </ng-template>
-  
+
     <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>E-mail</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Date Add</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateCreation">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
-    <button mat-button type="submit" [disabled]="clientForm.invalid">
+    <mat-form-field>
+      <mat-label>Customer Name</mat-label>
+      <input matInput formControlName="customerName">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Total</mat-label>
+      <input matInput formControlName="totalAmount">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>products</mat-label>
+      <input matInput formControlName="products">
+    </mat-form-field>
+  
+
+    <button mat-button type="submit" [disabled]="ordersForm.invalid">
       <mat-icon>save</mat-icon> Save
     </button>
   

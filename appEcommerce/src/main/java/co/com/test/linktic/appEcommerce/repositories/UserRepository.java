@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface UserRepository extends JpaRepository<Users,Integer>{
 	
-	public Optional<Users> findClientById(Integer id);
+	public Optional<Users> findUserById(Integer id);
     List<Users> findAllByOrderByIdDesc();
     Users findByEmail(String email);
 }

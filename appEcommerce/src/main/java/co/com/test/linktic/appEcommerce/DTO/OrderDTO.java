@@ -1,19 +1,20 @@
 package co.com.test.linktic.appEcommerce.DTO;
 
+
+import java.util.Date;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UsuarioDto {
-
+public class OrderDTO {
 	private Integer id;
-	private String nombre;
-	private String password;
-	private String email;
-	private String nombrePersona;
+	private Date date;
+	private String customerName;
+	private Double totalAmount;
+	private List<Integer> products;
 }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import co.com.test.linktic.appEcommerce.entity.Users;
-import co.com.test.linktic.appEcommerce.repositories.UserRepository;
 import co.com.test.linktic.appEcommerce.service.impl.UsersServiceImpl;
 import co.com.test.linktic.appEcommerce.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;

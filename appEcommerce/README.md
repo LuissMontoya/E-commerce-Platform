@@ -7,7 +7,7 @@ Para el Swagger:
 http://localhost:8080/swagger-ui/index.html#/
 http://localhost:8080/api-docs
 
-Se agrega seguridad al API, de tal mod que:
+Se agrega seguridad al API, de tal modo que:
 
 1.http://localhost:8080/api/user/create    (POST)
 2.http://localhost:8080/api/user/getAll    (GET)
@@ -29,6 +29,7 @@ listarlo en caso de que necesite consultar alguna información (2).
 Realizar el login (3) para obtener el token (JWT).
 
 con el token crear alguna categoria ya que al crear el producto ya debe existir almenos una categoria:
+
 http://localhost:8080/api/categoria/create  (POST)
 
 {
