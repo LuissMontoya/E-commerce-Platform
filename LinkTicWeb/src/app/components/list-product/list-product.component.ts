@@ -1,41 +1,40 @@
-import { Component, ChangeDetectorRef, inject } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MaterialModule } from '../../modules/material/material.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientComponent } from '../client/client.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ClientsService } from '../../services/clients.service';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { ProductsService } from 'src/app/services/products.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { ProductComponent } from '../product/product.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialModule } from 'src/app/modules/material/material.module';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list-product',
   standalone: true,
-  imports: [MaterialModule, MatToolbarModule,ClientComponent,HttpClientModule],
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'],
-  providers: [ClientsService]
+  imports: [MaterialModule, MatToolbarModule,ProductComponent,HttpClientModule],
+  templateUrl: './list-product.component.html',
+  styleUrl: './list-product.component.css',
+  providers: [ProductsService]
 })
-export class ListComponent {
+export class ListProductComponent {
   displayedColumns: string[] = [
     'id',
     'name',
-    'email',
-    'phone',
-    'dateCreation',
+    'price',
+    'stock',
+    'category',
     'actions',
   ];
-  clients: any[] = [];
+  products: any[] = [];
 
   dataSource = new MatTableDataSource();
-  filteredClients = new MatTableDataSource();
+  filteredproducts = new MatTableDataSource();
   searchValue= '';
 
   subscription$: Subscription[] = [];
 
-  clientServices=inject(ClientsService);
+  productservices=inject(ProductsService);
   authServices=inject(UserService);
 
   isEditing: boolean = false;
@@ -44,33 +43,33 @@ export class ListComponent {
   constructor(private cdRef: ChangeDetectorRef, public dialog: MatDialog ) {}
 
   ngOnInit(): void {
-    this.getAllClients();
+    this.getAllproducts();
  
   }
 
 
-  getAllClients() {
+  getAllproducts() {
     this.subscription$ = [
       ...this.subscription$,
-      this.clientServices.getAll().subscribe(res => {
+      this.productservices.getAll().subscribe(res => {
 
-        this.clients = res.objectResponse;
-        this.filteredClients.data = res.objectResponse;
+        this.products = res.objectResponse;
+        this.filteredproducts.data = res.objectResponse;
       })
     ];
   }
 
-  getClientePorClave() {
+  getProductPorClave() {
     console.log(this.searchValue);
     if(this.searchValue==""){
-      this.getAllClients();
+      this.getAllproducts();
     }else{
       this.subscription$ = [
         ...this.subscription$,
-        this.clientServices.getById(this.searchValue).subscribe(res => {
+        this.productservices.getById(this.searchValue).subscribe(res => {
   
-          this.clients = res.objectResponse;
-          this.filteredClients.data = this.clients;
+          this.products = res.objectResponse;
+          this.filteredproducts.data = this.products;
         })
       ];
     }
@@ -80,7 +79,7 @@ export class ListComponent {
   save(client: any) {
     this.subscription$ = [
       ...this.subscription$,
-      this.clientServices.create(client).subscribe(res => {
+      this.productservices.create(client).subscribe(res => {
         console.log(res);
         this.refreshTable();
       })
@@ -93,7 +92,7 @@ export class ListComponent {
     if (confirmed) {
       this.subscription$ = [
         ...this.subscription$,
-        this.clientServices.delete(client).subscribe(res => {
+        this.productservices.delete(client).subscribe(res => {
          alert(res.objectResponse);
          this.refreshTable();
         })
@@ -102,16 +101,16 @@ export class ListComponent {
   }
 
   refreshTable(): void {
-    this.filteredClients = new MatTableDataSource<any>();
-    this.clientServices.getAll().subscribe(res => {
-      this.clients = res.objectResponse; 
-      this.filteredClients =res.objectResponse; 
+    this.filteredproducts = new MatTableDataSource<any>();
+    this.productservices.getAll().subscribe(res => {
+      this.products = res.objectResponse; 
+      this.filteredproducts =res.objectResponse; 
     });
   }
 
   editClient(client: any) {
     this.isEditing = true;
-    const dialogRef = this.dialog.open(ClientComponent, {
+    const dialogRef = this.dialog.open(ProductComponent, {
       data: { client: client, isEditing: this.isEditing }
     });
 
@@ -124,7 +123,7 @@ export class ListComponent {
 
 
   openClientForm() {
-    const dialogRef = this.dialog.open(ClientComponent);
+    const dialogRef = this.dialog.open(ProductComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
@@ -134,7 +133,7 @@ export class ListComponent {
 
   addNewClient() {
     this.isEditing = false;
-    const dialogRef = this.dialog.open(ClientComponent, {
+    const dialogRef = this.dialog.open(ProductComponent, {
       data: { client: { id: 0, name: '', email: '', phone: '', password: '', dateCreation: '' } }
     });
   
@@ -147,8 +146,8 @@ export class ListComponent {
 
    
   }
-  exportClients() {
-    const dataToExport = this.clients.map((client) => ({
+  exportProducts() {
+    const dataToExport = this.products.map((client) => ({
       id: client.id,
       name: client.name,
       email: client.email,
@@ -181,8 +180,4 @@ export class ListComponent {
     }
   }
 
-
-
 }
-
-

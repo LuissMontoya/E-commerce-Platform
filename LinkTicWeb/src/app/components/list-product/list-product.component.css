@@ -1,0 +1,38 @@
+.client-list-container {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 3%;
+  }
+  
+  mat-table,
+  table {
+    width: 100%;
+  }
+  
+  .table-actions {
+    margin-bottom: 16px; /* Espacio entre los botones y el campo de búsqueda */
+  }
+  
+  .action-buttons {
+  display: flex; /* Enable flexbox for button alignment */
+}
+
+.action-header .action-buttons { /* Target header cell buttons */
+  justify-content: flex-end; /* Align to the right */
+}
+
+.action-cell .action-buttons { /* Target action cell buttons */
+  justify-content: center; /* Center horizontally */
+}
+
+  /* styles.css o el archivo CSS específico del componente */
+.container {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se alineen verticalmente */
+}
+
+.component {
+  margin-top: 0; /* Elimina cualquier margen superior */
+  padding-top: 0; /* Elimina cualquier relleno superior */
+  position: relative; /* Opcional, asegúrate de que esté en el flujo normal del documento */
+}

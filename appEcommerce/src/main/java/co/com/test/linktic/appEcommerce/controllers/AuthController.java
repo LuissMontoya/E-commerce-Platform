@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.test.linktic.appEcommerce.DTO.ResponseDTO;
 import co.com.test.linktic.appEcommerce.entity.Users;
-import co.com.test.linktic.appEcommerce.service.impl.CategoryServiceImpl;
 import co.com.test.linktic.appEcommerce.service.impl.UsersServiceImpl;
 import co.com.test.linktic.appEcommerce.utils.Constants;
 import co.com.test.linktic.appEcommerce.utils.JwtTokenUtil;

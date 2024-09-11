@@ -1,0 +1,83 @@
+<div>
+  
+    <!-- Campo de búsqueda -->
+    <mat-form-field class="search-field">
+      <mat-label>Search by Id</mat-label>
+      <input type="text" matInput placeholder="Search" [(ngModel)]="searchValue" (input)="getProductPorClave()">
+      <button mat-button matSuffix mat-icon-button matTooltip="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  
+      
+    <table mat-table [dataSource]="filteredproducts" class="mat-elevation-z8">
+      <!-- Shared Key Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id Producto</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+  
+      <!-- Business ID Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+  
+      <!-- description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
+  
+      <!-- price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+      </ng-container>
+  
+      <!-- stock Column -->
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef>stock</th>
+        <td mat-cell *matCellDef="let element">{{ element.stock }}</td>
+      </ng-container>
+
+      <!-- category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>category</th>
+        <td mat-cell *matCellDef="let element">{{ element.category.name }}</td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef colspan="2" class="action-header">
+          Actions
+          <div class="action-buttons">
+            <button mat-icon-button matTooltip="Add New Product" (click)="addNewClient()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Export Product" (click)="exportProducts()">
+              <mat-icon>file_download</mat-icon>
+            </button>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let row" class="action-cell">
+          <div class="action-buttons">
+            <button mat-icon-button (click)="editClient(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteClient(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      
+      
+      
+  
+      <!-- Definición de filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table> 
+  </div>
+  

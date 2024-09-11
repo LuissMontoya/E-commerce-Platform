@@ -13,26 +13,26 @@
     class="app-sidenav"
   >
     <mat-nav-list>
-        <mat-nav-list>
-          <a mat-list-item routerLink="#" (click)="toggleClientList()">
-            <mat-icon>person</mat-icon><span> Usuarios</span>
-          </a>
-          <a mat-list-item routerLink="#">
-            <mat-icon>history</mat-icon><span> Clients look history</span>
-          </a>
-          <a mat-list-item routerLink="#">
-            <mat-icon>fiber_pin</mat-icon
-            ><span> Emergency PIN configuration</span>
-          </a>
-          <a mat-list-item routerLink="#">
-            <mat-icon>history</mat-icon><span> Emergency PIN history</span>
-          </a>
-        </mat-nav-list>
+      <a mat-list-item (click)="toggleClientList()">
+        <mat-icon>person</mat-icon><span> Usuarios</span>
+      </a>
+      <a mat-list-item (click)="toggleProductsList()">
+        <mat-icon>shopping_cart</mat-icon><span> Productos</span>
+      </a>
+      <a mat-list-item (click)="toggleOrderList()">
+        <mat-icon>history</mat-icon><span> Clients look history</span>
+      </a>
+      <a mat-list-item>
+        <mat-icon>fiber_pin</mat-icon><span> Emergency PIN configuration</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <div class="app-sidenav-content">
       <app-list *ngIf="showClientList"></app-list>
+      <app-list-product *ngIf="showProductList"></app-list-product>
+      <app-list-order *ngIf="showOrderList"></app-list-order>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

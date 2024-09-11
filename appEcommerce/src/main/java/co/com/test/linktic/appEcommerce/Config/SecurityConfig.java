@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-		 http.csrf().disable()
+		 http.cors().and().csrf().disable()
          .authorizeRequests()
          .antMatchers("/api/user/create", "/api/user/getAll", "/api/auth/login").permitAll() // Permitir acceso sin autenticación a estas rutas
          .anyRequest().authenticated()  // Requiere autenticación para cualquier otra solicitud

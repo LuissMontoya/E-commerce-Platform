@@ -1,33 +1,30 @@
-import { Component, OnInit, Inject, inject, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MaterialModule } from '../../modules/material/material.module'
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ClientsService } from '../../services/clients.service';
-import { Subscription } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
-import { CommonModule, DatePipe } from '@angular/common';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
+import { DatePipe } from '@angular/common';
+import { Component, Inject, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { MaterialModule } from 'src/app/modules/material/material.module';
+import { ProductsService } from 'src/app/services/products.service';
+import { ProductComponent } from '../product/product.component';
 
 @Component({
-  selector: 'app-client',
+  selector: 'app-order',
   standalone: true,
-  imports: [MaterialModule, CommonModule,ReactiveFormsModule, DatePipe, MatDatepickerModule, MatInputModule],
-  templateUrl: './client.component.html',
-  styleUrl: './client.component.css',
-  providers: [{ provide: ClientsService },
-  { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-  { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-
-  ]
+  imports: [MaterialModule, ReactiveFormsModule, DatePipe, MatDatepickerModule, MatInputModule],
+  templateUrl: './order.component.html',
+  styleUrl: './order.component.css',
+  providers: [{ provide: ProductsService },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    ]
 })
+export class OrderComponent implements OnInit {
 
-export class ClientComponent implements OnInit {
-  private _clientServices: ClientsService | undefined;
   clientForm!: FormGroup;
   clientData: any;
   clients: any[] = [];
@@ -40,13 +37,13 @@ export class ClientComponent implements OnInit {
 
   subscription$: Subscription[] = [];
 
-  clientServices = inject(ClientsService);
+  clientServices = inject(ProductsService);
 
 
   constructor(
 
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<ClientComponent>,
+    public dialogRef: MatDialogRef<ProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
@@ -146,5 +143,4 @@ export class ClientComponent implements OnInit {
       })
     ];
   }
-
 }

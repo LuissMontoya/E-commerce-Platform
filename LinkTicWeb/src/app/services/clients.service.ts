@@ -10,8 +10,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ClientsService {
+  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.headers = this.getAuthHeaders();
+  }
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
@@ -22,27 +25,22 @@ export class ClientsService {
 
   
   getAll(): Observable<ResponseDto> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<ResponseDto>(`${environment.API_URL}/getAll` ,{headers});
+    return this.http.get<ResponseDto>(`${environment.API_URL}/getAll` ,{ headers: this.headers });
   }
 
-  getById(key: string): Observable<ResponseDto> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<ResponseDto>(`${environment.API_URL}/search?id=${key}`,{headers});
+  getById(key: string | number): Observable<ResponseDto> {
+    return this.http.get<ResponseDto>(`${environment.API_URL}/search?id=${key}`,{ headers: this.headers });
   }
 
   create(client: any): Observable<ResponseDto> {
-    const headers = this.getAuthHeaders();
-    return this.http.post<ResponseDto>(`${environment.API_URL}/create`, client,{headers});
+    return this.http.post<ResponseDto>(`${environment.API_URL}/create`, client,{ headers: this.headers });
   }
 
   edit(client: any): Observable<ResponseDto> {
-    const headers = this.getAuthHeaders();
-    return this.http.post<ResponseDto>(`${environment.API_URL}/update`, client,{headers});
+    return this.http.put<ResponseDto>(`${environment.API_URL}/update`, client,{ headers: this.headers });
   }
 
-  delete(key: number): Observable<ResponseDto> {
-    const headers = this.getAuthHeaders();
-    return this.http.delete<ResponseDto>(`${environment.API_URL}/delete?id=${key}`,{headers});
+  delete(client: any): Observable<ResponseDto> {
+    return this.http.delete<ResponseDto>(`${environment.API_URL}/delete?id=${client.id}`,{ headers: this.headers });
   }
 }
