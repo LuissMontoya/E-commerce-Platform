@@ -11,11 +11,13 @@ import { Subscription } from 'rxjs';
 import { MaterialModule } from 'src/app/modules/material/material.module';
 import { ProductComponent } from '../product/product.component';
 import { OrdersService } from 'src/app/services/orders.service';
+import { ProductsService } from 'src/app/services/products.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, CommonModule,DatePipe, MatDatepickerModule, MatInputModule],
+  imports: [MaterialModule, ReactiveFormsModule,MatSelectModule, CommonModule,DatePipe, MatDatepickerModule, MatInputModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css',
   providers: [{ provide: OrdersService },
@@ -28,16 +30,17 @@ export class OrderComponent implements OnInit {
   ordersForm!: FormGroup;
   ordersData: any;
   orders: any[] = [];
+  products: any[] = [];
 
   dataSource = new MatTableDataSource();
   filteredorders = new MatTableDataSource();
+  filteredproducts = new MatTableDataSource();
 
   searchValue = '';
-
-
   subscription$: Subscription[] = [];
 
   ordersService = inject(OrdersService);
+  productservices=inject(ProductsService);
 
 
   constructor(
@@ -48,13 +51,13 @@ export class OrderComponent implements OnInit {
 
   ) {
     this.ordersData = data.order;
-    console.log("data recibida ",data.order);
   }
 
 
   ngOnInit(): void {
     this.isEditing = !!this.data.order.id;
-    console.log("this.data.order.id ",this.data.order.id);
+    console.log("this.data.order  ",this.data.order);
+    this.getAllproducts();
     this.ordersForm = this.formBuilder.group({
       id: [(this.ordersData as any).id, ''],
       date: [(this.ordersData as any).date, Validators.required],
@@ -63,6 +66,17 @@ export class OrderComponent implements OnInit {
       products: [(this.ordersData as any).products, Validators.required]
     });
     this.isEditing = !!this.data.order.id;
+
+    if (this.isEditing && this.data.order) {
+      console.log("this.data.client.category.id " ,this.data.order.products);
+      for(var i=0; i< this.data.order.products.length; i++){
+        console.log("i "+this.data.order.products[i].name);
+        this.products.push(this.data.order.products[i].id);
+      }
+      
+      this.ordersForm.get('products')?.setValue(this.products);
+     
+    }
   }
 
   save(order: any) {
@@ -122,6 +136,17 @@ export class OrderComponent implements OnInit {
     }
 
     //this.dialogRef.close(this.ordersForm.value);
+  }
+
+  getAllproducts() {
+    this.subscription$ = [
+      ...this.subscription$,
+      this.productservices.getAll().subscribe(res => {
+
+        this.products = res.objectResponse;
+        this.filteredproducts.data = res.objectResponse;
+      })
+    ];
   }
 
   clearForm() {

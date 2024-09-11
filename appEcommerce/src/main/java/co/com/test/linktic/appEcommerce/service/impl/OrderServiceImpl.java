@@ -84,8 +84,8 @@ public class OrderServiceImpl implements IOrderService {
 		Optional<Order> orderOptional = this.orderRepository.findById(orderDTO.getId());
 		try {
 			order = OrdersMapper.INSTANCE.dtoToEntity(orderDTO);
-			 /*List<Product> products = productRepository.findAllById(orderDTO.getProducts());
-		        order.setProducts(products);*/
+			 List<Product> products = productRepository.findAllById(orderDTO.getProducts());
+		        order.setProducts(products);
 		        
 			if (orderOptional.isPresent()) {
 				response = Utils.mapearRespuesta(HttpStatus.OK.name(), HttpStatus.OK.value(),

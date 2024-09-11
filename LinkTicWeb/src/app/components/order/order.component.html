@@ -7,7 +7,7 @@
   
   <form [formGroup]="ordersForm" (ngSubmit)="onSubmit()">
     <mat-form-field *ngIf="isEditing; else sharedKeyInput">
-      <mat-label>Id Usuario</mat-label>
+      <mat-label>Id Orden</mat-label>
       <input matInput [value]="ordersForm.get('id')?.value" disabled>
     </mat-form-field>
   
@@ -36,9 +36,13 @@
     </mat-form-field>
   
     <mat-form-field>
-      <mat-label>products</mat-label>
-      <input matInput formControlName="products">
-    </mat-form-field>
+    <mat-label>Products</mat-label>
+    <mat-select formControlName="products" multiple>
+      <mat-option *ngFor="let product of products" [value]="product.id">
+        {{ product.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   
 
     <button mat-button type="submit" [disabled]="ordersForm.invalid">
