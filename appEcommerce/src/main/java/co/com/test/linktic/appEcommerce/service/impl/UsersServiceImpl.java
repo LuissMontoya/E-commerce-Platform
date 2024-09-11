@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.com.test.linktic.appEcommerce.DTO.UsersDTO;
@@ -27,6 +29,9 @@ public class UsersServiceImpl implements IUserService{
 	
 	private final UserRepository userRepository;
 	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
 	@Override
 	public ResponseEntity<ResponseDTO> saveUser(UsersDTO userDTO) {
 		log.info("save "+ userDTO);
@@ -41,9 +46,18 @@ public class UsersServiceImpl implements IUserService{
 		}
 		
 		ResponseDTO response = null;
+		Users validaUser = this.userRepository.findByEmail(userDTO.getEmail());
+		if(validaUser !=null) {
+			response = Utils.mapearRespuesta(Constants.USUARIO_EXISTENTE,HttpStatus.BAD_REQUEST.value());
+			return new ResponseEntity<ResponseDTO>(response, HttpStatus.CONFLICT);
+		}
+		
 		try {
+			Users user = UsersMapper.INSTANCE.dtoToEntity(userDTO);
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			
 				response = Utils.mapearRespuesta(HttpStatus.CREATED.name(), HttpStatus.CREATED.value(),
-						this.userRepository.save(UsersMapper.INSTANCE.dtoToEntity(userDTO)));
+						this.userRepository.save(user));
 			
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
@@ -135,6 +149,11 @@ public class UsersServiceImpl implements IUserService{
 	    }
 
 	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public Users findByEmail(String email) {
+		return this.userRepository.findByEmail(email);
 	}
 
 

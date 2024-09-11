@@ -1,4 +1,4 @@
-package co.com.test.linktic.appEcommerce.service.impl;
+package co.com.test.linktic.appEcommerce.service;
 
 import org.springframework.http.ResponseEntity;
 

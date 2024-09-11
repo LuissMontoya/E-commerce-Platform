@@ -66,11 +66,11 @@
 		    <version>1.5.3.Final</version>
 		    <scope>provided</scope>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 		   <groupId>org.springdoc</groupId>
 		   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 		   <version>2.0.0</version>
-		</dependency> -->
+		</dependency> 
 		<dependency>
 			<groupId>com.internetitem</groupId>
 			<artifactId>logback-elasticsearch-appender</artifactId>
@@ -83,7 +83,7 @@
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!-- Spring Boot Starter Security 
+    <!-- Spring Boot Starter Security -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-security</artifactId>
@@ -93,7 +93,7 @@
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt</artifactId>
         <version>0.9.1</version>
-    </dependency> -->
+    </dependency> 
 
     <!-- Spring Boot Starter Data JPA -->
     <dependency>

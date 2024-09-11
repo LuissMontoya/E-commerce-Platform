@@ -5,11 +5,13 @@ public class Constants {
 	public static final String GUARDADO_EXITOSAMENTE ="Guardado exitosamente";
 	public static final String ACTUALIZADO_EXITOSAMENTE ="Actualizado exitosamente";
 	public static final String ELIMINADO_EXITOSAMENTE ="Eliminado exitosamente";
-	public static final String CONSULTA_EXITOSAMENTE ="Consulta exitosamente";
+	public static final String CONSULTA_EXITOSAMENTE ="Consulta exitosa";
 	public static final String NINGUN_REGISTRO_ENCONTRADO ="Ningún registro encontrado";
 	public static final String CONSULTA_ERROR ="Error de consulta";
 	public static final String USUARIO_NO_ENCONTRADO ="Usuario no encontrado";
 	public static final String CATEGORIA_NO_ENCONTRADA ="Categoria no encontrada: ";
+	public static final String USUARIO_EXISTENTE ="El usuario ya existe ";
+	
 	
 	public static final String SI= "SI";
 	public static final String NO= "NO";
