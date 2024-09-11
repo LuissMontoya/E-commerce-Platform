@@ -147,12 +147,12 @@ export class ListOrderComponent {
    
   }
   exportOrders() {
-    const dataToExport = this.orders.map((client) => ({
-      id: client.id,
-      date: client.date,
-      customerName: client.customerName,
-      totalAmount: client.totalAmount,
-      products: client.products,
+    const dataToExport = this.orders.map((order) => ({
+      id: order.id,
+      date: order.date,
+      customerName: order.customerName,
+      totalAmount: order.totalAmount,
+      products: order.products.map((product: { name: any; }) => product.name).join(', ') // Une los nombres de los productos en una cadena
     }));
 
     const csvData = this.convertToCSV(dataToExport);

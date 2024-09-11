@@ -150,9 +150,10 @@ export class ListProductComponent {
     const dataToExport = this.products.map((client) => ({
       id: client.id,
       name: client.name,
-      email: client.email,
-      phone: client.phone,
-      dateCreation: client.dateCreation,
+      description: client.description,
+      price: client.price,
+      stock: client.stock,
+      category: client.category.name,
     }));
 
     const csvData = this.convertToCSV(dataToExport);
@@ -160,7 +161,7 @@ export class ListProductComponent {
 
     const a = document.createElement('a');
     a.href = window.URL.createObjectURL(blob);
-    a.download = 'users.csv';
+    a.download = 'products.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
