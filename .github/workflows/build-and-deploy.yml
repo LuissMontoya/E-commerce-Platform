@@ -32,4 +32,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file appEcommerce/pom.xml
 
+    - name: Deploy to GitHub Packages
+      run: mvn deploy --file appEcommerce/pom.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/LuissMontoya/E-commerce-Platform
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
