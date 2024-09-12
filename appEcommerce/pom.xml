@@ -9,7 +9,7 @@
 		<relativePath/> 
 	</parent>
 	<groupId>co.com.test.linktic</groupId>
-	<artifactId>AppEcommerce</artifactId>
+	<artifactId>app_ecommerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AppEcommerce</name>
 	<description>Services for Ecommerce</description>
